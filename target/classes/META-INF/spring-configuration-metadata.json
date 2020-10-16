@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "preread",
+      "type": "com.qiufeng.blog.configuration.PreReadUploadConfig",
+      "sourceType": "com.qiufeng.blog.configuration.PreReadUploadConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "preread.upload-path",
+      "type": "java.lang.String",
+      "sourceType": "com.qiufeng.blog.configuration.PreReadUploadConfig"
+    }
+  ],
+  "hints": []
+}
