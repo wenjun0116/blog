@@ -1,9 +1,11 @@
 package com.qiufeng.blog.controller;
 
+import com.qiufeng.blog.entity.Blog;
 import com.qiufeng.blog.entity.Comment;
 import com.qiufeng.blog.entity.User;
 import com.qiufeng.blog.service.BlogService;
 import com.qiufeng.blog.service.CommentService;
+import com.qiufeng.blog.service.UserService;
 import com.qiufeng.blog.util.CommentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +32,9 @@ public class CommentController {
 
     @Autowired
     BlogService blogService;
+
+    @Resource
+    UserService userService;
 
     @Resource
     JavaMailSenderImpl javaMailSender;
@@ -65,10 +70,15 @@ public class CommentController {
             commentService.saveComment(comment);
             //提示博主有人评论了这篇博客
             if (!comment.isAdmin()){
+                //获取该博客信息
+                Blog blog = blogService.getBlog(blogId);
+                //获取博主信息
+                User user = userService.findById(blog.getUser().getId());
+                helper.setSubject("你发布的博客收到一条评论，快去看看吧");
                 //博主发送的评论不用提示
                 helper.setText("<h3>网友：<span style='color: red !important;'>"+comment.getNickName()+"</span>评论了您的博客</h3>" +
                         "<p><a href='https://www.qfblog.top:8888/blog/"+blogId+"'>快去看看吧</a></p>",true);
-                helper.setTo(comment.getEmail());
+                helper.setTo(user.getEmail());
                 helper.setFrom("2404240896@qq.com");
                 javaMailSender.send(mimeMessage);
             }

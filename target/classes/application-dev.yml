@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://101.201.102.221:3306/myblog?serverTimezone=GMT%2B8
-    password: zwj_0116_ZWJ
+    url: jdbc:mysql://127.0.0.1:3306/myblog?serverTimezone=GMT%2B8
+    password: 123456
     username: root
   jpa:
     hibernate:
@@ -13,7 +13,7 @@ spring:
         enable_lazy_load_no_trans: true
   mail:
       username: 2404240896@qq.com
-      password: jtoxczqetkfxdjcj
+      password: fzmqvbehniovdhga
       host: smtp.qq.com
       properties:
         mail:
