@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 评论工具类
+ */
 public class CommentUtil {
 
     List<Comment> comments;

@@ -18,6 +18,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Resource
     CommentRepository commentRepository;
+
     @Override
     public List<Comment> listCommentByBlogId(Long blogId) {
         List<Comment> comments = commentRepository.findByBlogId(blogId, Sort.by( "createTime"));
@@ -36,10 +37,12 @@ public class CommentServiceImpl implements CommentService{
         comment.setCreateTime(new Date());
         return commentRepository.save(comment);
     }
+
     @Override
     public List<Comment> listCommentByParentCommentId(Long parentCommentId) {
         return commentRepository.findByParentCommentId(parentCommentId,Sort.by("createTime"));
     }
+
     @Override
     public Comment findById(Long id) {
         return commentRepository.getOne(id);

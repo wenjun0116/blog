@@ -2,7 +2,7 @@ package com.qiufeng.blog.controller;
 
 import com.qiufeng.blog.entity.Blog;
 import com.qiufeng.blog.entity.Comment;
-import com.qiufeng.blog.entity.User;
+import com.qiufeng.blog.entity.SysUser;
 import com.qiufeng.blog.service.BlogService;
 import com.qiufeng.blog.service.CommentService;
 import com.qiufeng.blog.service.UserService;
@@ -21,23 +21,22 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.util.List;
 
 @Controller
 public class CommentController {
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
     @Resource
-    UserService userService;
+    private UserService userService;
 
     @Resource
-    JavaMailSenderImpl javaMailSender;
+    private JavaMailSenderImpl javaMailSender;
 
     /**
      * 取出配置文件中评论用户默认头像
@@ -56,13 +55,13 @@ public class CommentController {
 
     //提交评论
     @PostMapping("/comments")
-    public String postComments(Comment comment, HttpSession session){
+    public String postComments(Comment comment){
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getAndConvert(blogId));
         comment.setAvatar(avatar);
-        if (session.getAttribute("user")!=null){
+        SysUser admin = userService.findByEmailAndNickName(comment.getEmail(), comment.getNickName());
+        if (admin != null){
             comment.setAdmin(true);
-            comment.setAvatar(((User)session.getAttribute("user")).getAvatar());
         }
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
@@ -73,12 +72,12 @@ public class CommentController {
                 //获取该博客信息
                 Blog blog = blogService.getBlog(blogId);
                 //获取博主信息
-                User user = userService.findById(blog.getUser().getId());
+                SysUser sysUser = userService.findById(blog.getUserId());
                 helper.setSubject("你发布的博客收到一条评论，快去看看吧");
                 //博主发送的评论不用提示
                 helper.setText("<h3>网友：<span style='color: red !important;'>"+comment.getNickName()+"</span>评论了您的博客</h3>" +
                         "<p><a href='https://www.qfblog.top:8888/blog/"+blogId+"'>快去看看吧</a></p>",true);
-                helper.setTo(user.getEmail());
+                helper.setTo(sysUser.getEmail());
                 helper.setFrom("2404240896@qq.com");
                 javaMailSender.send(mimeMessage);
             }

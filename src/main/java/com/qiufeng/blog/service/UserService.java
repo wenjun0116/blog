@@ -1,10 +1,13 @@
 package com.qiufeng.blog.service;
 
-import com.qiufeng.blog.entity.User;
+import com.qiufeng.blog.entity.SysUser;
 
 public interface UserService {
 
-    User checkUser(String userName, String password);
+    SysUser checkUser(String userName, String password);
 
-    User findById(Long id);
+    SysUser findById(Long id);
+
+    SysUser findByEmailAndNickName(String email, String nickName);
+
 }

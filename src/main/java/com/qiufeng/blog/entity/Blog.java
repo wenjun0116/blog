@@ -1,11 +1,7 @@
 package com.qiufeng.blog.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,6 +71,17 @@ public class Blog{
     private String description;
 
     /**
+     * 博主ID
+     */
+    private Long userId;
+
+    /**
+     * 博主信息
+     */
+    @ManyToOne
+    private SysUser sysUser;
+
+    /**
      * 创建时间
      */
     @Temporal(TemporalType.TIMESTAMP)
@@ -97,9 +104,6 @@ public class Blog{
      */
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
-
-    @ManyToOne
-    private User user;
 
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
@@ -234,12 +238,12 @@ public class Blog{
         this.tags = tags;
     }
 
-    public User getUser() {
-        return user;
+    public SysUser getSysUser() {
+        return sysUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSysUser(SysUser sysUser) {
+        this.sysUser = sysUser;
     }
 
     public List<Comment> getComments() {
@@ -268,6 +272,14 @@ public class Blog{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     //将集合中的id以1,2,3的方式初始化
@@ -307,7 +319,7 @@ public class Blog{
                 ", updateTime=" + updateTime +
                 ", type=" + type +
                 ", tags=" + tags +
-                ", user=" + user +
+                ", user=" + sysUser +
                 ", comments=" + comments +
                 ", tagIds='" + tagIds + '\'' +
                 '}';

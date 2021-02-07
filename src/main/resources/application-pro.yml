@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://101.201.102.221:3306/myblog?serverTimezone=GMT%2B8
+    url: jdbc:mysql://49.235.105.223:3306/jun-blog-v2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     password: zwj_0116_ZWJ
     username: root
   jpa:
@@ -35,4 +35,4 @@ server:
     keyStoreType: PKCS12
     enabled: true
 preread:
-  uploadPath: /usr/local/src/images/
+  uploadPath: /usr/local/src/myblog

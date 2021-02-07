@@ -1,9 +1,11 @@
 package com.qiufeng.blog.dao;
 
-import com.qiufeng.blog.entity.User;
+import com.qiufeng.blog.entity.SysUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<SysUser,Long> {
 
-    User findByUserNameAndPassword(String userName,String password);
+    SysUser findByUserNameAndPassword(String userName, String password);
+
+    SysUser findByEmailAndNickName(String email, String nickName);
 }

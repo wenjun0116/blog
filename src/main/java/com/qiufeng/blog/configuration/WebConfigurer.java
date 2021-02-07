@@ -12,10 +12,12 @@ import javax.annotation.Resource;
 public class WebConfigurer extends WebMvcConfigurerAdapter {
 
     @Resource
-    PreReadUploadConfig uploadConfig;
+    private PreReadUploadConfig uploadConfig;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("file:///"+uploadConfig.getUploadPath());
+        registry.addResourceHandler("/static/**").addResourceLocations("file:///" + uploadConfig.getUploadPath() + "/avatar/");
+        registry.addResourceHandler("/blogImg/**").addResourceLocations("file:///" + uploadConfig.getUploadPath() + "/blogImg/");
     }
+
 }

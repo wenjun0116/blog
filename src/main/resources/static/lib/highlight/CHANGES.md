@@ -551,7 +551,7 @@ Improvements:
   Allow empty prompt text in clojure-repl, by [Egor Rogov][]
 - Fixed several issues with *Crystal* language definition, by [Johannes Müller][]
 - Added `C#` as an alias for *CSharp* language, by [Ahmed Atito][]
-- Added generic user-defined proc support, new compiler define, refactor to re-use rules, and add tests to *GAUSS*, by [Matthew Evans][]
+- Added generic sysUser-defined proc support, new compiler define, refactor to re-use rules, and add tests to *GAUSS*, by [Matthew Evans][]
 - Improve *Crystal* language to highlight regexes after some keywords, by [Tsuyusato Kitsune][]
 - Fix filterByQualifiers: fileInfo can be null
 - Fixed String interpolation in Dart, by [Scott Hyndman][].
@@ -2012,7 +2012,7 @@ diagnostics!
 
 The version to fulfil old promises.
 
-The most significant change is that highlight.js now preserves custom user
+The most significant change is that highlight.js now preserves custom sysUser
 markup in code along with its own highlighting markup. This means that now it's
 possible to use, say, links in code. Thanks to [Vladimir Dolzhenko][vd] for the
 [initial proposal][1] and for making a proof-of-concept patch.

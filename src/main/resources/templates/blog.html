@@ -21,11 +21,11 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">QfBlogs</h2>
-            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
-            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
-            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
-            <a href="#" th:href="@{/aboutme}" class="m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
+            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="mini home icon"></i><span class="m-margin-header">首页</span></a>
+            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon"></i><span class="m-margin-header">分类</span></a>
+            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="mini tags icon"></i><span class="m-margin-header">标签</span></a>
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="mini clone icon"></i><span class="m-margin-header">归档</span></a>
+            <a href="#" th:href="@{/aboutme}" class="m-item item m-mobile-hide"><i class="mini info icon"></i><span class="m-margin-header">关于我</span></a>
             <div class="m-item right item m-mobile-hide">
                 <form action="#" name="search" th:action="@{/search}" method="post" target="_blank">
                     <div class="ui icon inverted transparent input">
@@ -46,10 +46,10 @@
     <div class="ui container">
         <div class="ui top attached segment b-rgba border-color">
             <div class="ui horizontal link list">
-                <div class="item" th:if="${blog.user}!=null">
-                    <img src="../static/images/head3.jpeg" th:src="@{${blog.user.avatar}}" class="ui avatar image">
+                <div class="item" th:if="${blog.sysUser}!=null">
+                    <img src="../static/images/head3.jpeg" th:src="@{${blog.sysUser.avatar}}" class="ui avatar image">
                     <div class="content">
-                        <a target="_blank" class="header" th:text="${blog.user.nickName}">亨书学堂</a>
+                        <a target="_blank" class="header" th:text="${blog.sysUser.nickName}">亨书学堂</a>
                     </div>
                 </div>
                 <div class="item">
@@ -460,21 +460,6 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
         </div>
-        <div class="ui attached positive message b-rgba border-color">
-            <div class="ui middle aligned grid">
-                <div class="eleven wide column">
-                    <ul class="list" th:if="${blog.user}!=null">
-                        <li>作者：<span th:text="${blog.user.nickName}">亨书学堂</span><a href="#" th:href="@{/about}" target="_blank"> (联系作者) </a></li>
-                        <li>发表时间：<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-8-10 10:00</span></li>
-                        <li>版权声明：自由转载-非商用-非衍生-保持署名 (创意共享3.0许可证) </li>
-                        <li>公众号转载：请在文末添加作者公众号二维码</li>
-                    </ul>
-                </div>
-                <div class="five wide column">
-                    <img src="../static/images/myWXTencent.jpg" th:src="@{/images/myWXTencent.jpg}" class="ui right floated rounded bordered image" style="width: 110px;">
-                </div>
-            </div>
-        </div>
         <div class="ui bottom attached segment b-rgba border-color" th:if="${blog.isCommentabled()}==true">
             <!--留言区-->
             <div id="comment-container" class="ui teal segment b-rgba">
@@ -596,15 +581,15 @@ h5,h6{font-size:1em;}
                 <div class="fields">
                     <div class="field m-mobile-wide m-margin-button-small">
                         <div class="ui left icon input">
-                            <i class="user icon" style="color: black !important;"></i>
-                            <input type="text" name="nickName" th:value="${session.user==null}?'':${session.user.nickName}"
+                            <i class="sysUser icon" style="color: black !important;"></i>
+                            <input type="text" name="nickName" th:value="${session.sysUser==null}?'':${session.sysUser.nickName}"
                                    placeholder="姓名">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-button-small">
                         <div class="ui left icon input">
                             <i class="mail icon" style="color: black !important;"></i>
-                            <input type="email" name="email" th:value="${session.user==null}?'':${session.user.email}" placeholder="邮箱">
+                            <input type="email" name="email" th:value="${session.sysUser==null}?'':${session.sysUser.email}" placeholder="邮箱">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-button-small">

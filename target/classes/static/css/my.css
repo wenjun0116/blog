@@ -100,6 +100,10 @@
 .m-margin-button-small{
     margin-bottom: 0.5em !important;
 }
+.m-margin-header{
+    margin-left: 5px !important;
+    margin-top: 5px !important;
+}
 
  /*-------set text--------*/
 .m-text-thin{

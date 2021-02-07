@@ -2,13 +2,9 @@ package com.qiufeng.blog.controller;
 
 import com.qiufeng.blog.entity.Blog;
 import com.qiufeng.blog.entity.Comment;
-import com.qiufeng.blog.service.BlogService;
-import com.qiufeng.blog.service.CommentService;
-import com.qiufeng.blog.service.TagService;
-import com.qiufeng.blog.service.TypeService;
+import com.qiufeng.blog.service.*;
 import com.qiufeng.blog.util.CommentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {

@@ -5,6 +5,7 @@ import com.qiufeng.blog.entity.Blog;
 import com.qiufeng.blog.entity.Type;
 import com.qiufeng.blog.exception.NotFoundException;
 import com.qiufeng.blog.service.BlogService;
+import com.qiufeng.blog.service.UserService;
 import com.qiufeng.blog.util.MarkdownUtils;
 import com.qiufeng.blog.util.MyBeanUtils;
 import com.qiufeng.blog.vo.BlogQuery;
@@ -27,7 +28,10 @@ import java.util.*;
 public class BlogServiceImpl implements BlogService{
 
     @Resource
-    BlogRepository blogRepository;
+    private BlogRepository blogRepository;
+
+    @Resource
+    private UserService userService;
 
     @Override
     public Blog getBlog(Long id) {
@@ -51,38 +55,47 @@ public class BlogServiceImpl implements BlogService{
 
     @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
-        return blogRepository.findAll(new Specification<Blog>() {
+        Page<Blog> all = blogRepository.findAll(new Specification<Blog>() {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-                if (!"".equals(blog.getTitle()) && blog.getTitle() != null){
-                    predicates.add(criteriaBuilder.like(root.<String>get("title"),"%"+blog.getTitle()+"%"));
+                if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
+                    predicates.add(criteriaBuilder.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
 
                 }
-                if (blog.getTypeId() != null){
-                    predicates.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blog.getTypeId()));
+                if (blog.getTypeId() != null) {
+                    predicates.add(criteriaBuilder.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
                 }
-                if (blog.isRecommend()){
-                    predicates.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blog.isRecommend()));
+                if (blog.isRecommend()) {
+                    predicates.add(criteriaBuilder.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
                 }
                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return null;
             }
-        },pageable);
+        }, pageable);
+        for (Blog b:all) {
+            b.setSysUser(userService.findById(b.getUserId()));
+        }
+        return all;
     }
     @Override
     public Page<Blog> listBlog(Pageable pageable) {
         return blogRepository.findAll(pageable);
     }
+
     @Override
     public Page<Blog> listBlog(Long tagId, Pageable pageable){
-        return blogRepository.findAll(new Specification<Blog>() {
+        Page<Blog> all = blogRepository.findAll(new Specification<Blog>() {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Join join = root.join("tags");
-                return criteriaBuilder.equal(join.get("id"),tagId);
+                return criteriaBuilder.equal(join.get("id"), tagId);
             }
-        },pageable);
+        }, pageable);
+        for (Blog b:all) {
+            b.setSysUser(userService.findById(b.getUserId()));
+        }
+        return all;
     }
     @Override
     public Map<String, List<Blog>> archiveBlog() {
@@ -100,7 +113,11 @@ public class BlogServiceImpl implements BlogService{
 
     @Override
     public Page<Blog> listPublishedBlog(Pageable pageable) {
-        return blogRepository.listBlog(pageable);
+        Page<Blog> blogs = blogRepository.listBlog(pageable);
+        for (Blog blog:blogs) {
+            blog.setSysUser(userService.findById(blog.getUserId()));
+        }
+        return blogs;
     }
 
     @Transactional
