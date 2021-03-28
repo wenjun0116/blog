@@ -13,7 +13,7 @@ spring:
         enable_lazy_load_no_trans: true
   mail:
       username: 2404240896@qq.com
-      password: fzmqvbehniovdhga
+      password: meeymhgpalymdjeg
       host: smtp.qq.com
       properties:
         mail:
@@ -26,9 +26,9 @@ logging:
     com.qiufeng: debug
   file: log/blog-dev.log
 http:
-  port: 8081
+  port: 443
 server:
-  port: 8888
+  port: 80
   ssl:
     key-store: classpath:4474412_www.qfblog.top.pfx
     key-store-password: vG93nROA

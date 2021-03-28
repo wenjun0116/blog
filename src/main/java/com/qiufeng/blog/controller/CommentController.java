@@ -76,7 +76,7 @@ public class CommentController {
                 helper.setSubject("你发布的博客收到一条评论，快去看看吧");
                 //博主发送的评论不用提示
                 helper.setText("<h3>网友：<span style='color: red !important;'>"+comment.getNickName()+"</span>评论了您的博客</h3>" +
-                        "<p><a href='https://www.qfblog.top:8888/blog/"+blogId+"'>快去看看吧</a></p>",true);
+                        "<p><a href='https://www.qfblog.top/blog/"+blogId+"'>快去看看吧</a></p>",true);
                 helper.setTo(sysUser.getEmail());
                 helper.setFrom("2404240896@qq.com");
                 javaMailSender.send(mimeMessage);
@@ -89,10 +89,10 @@ public class CommentController {
                     //判断是否是博主回复了该评论
                     if (comment.isAdmin()){
                         helper.setText("<h3>博主：<span style='color: red !important;'>"+comment.getNickName()+"</span> 回复了您的评论</h3>" +
-                                "<p><a href='https://www.qfblog.top:8888/blog/"+blogId+"'>快去看看吧</a></p>",true);
+                                "<p><a href='https://www.qfblog.top/blog/"+blogId+"'>快去看看吧</a></p>",true);
                     }else{
                         helper.setText("<h3>网友：<span style='color: red !important;'>"+comment.getNickName()+"</span> 回复了您的评论</h3>" +
-                                "<p><a href='https://www.qfblog.top:8888/blog/"+blogId+"'>快去看看吧</a></p>",true);
+                                "<p><a href='https://www.qfblog.top/blog/"+blogId+"'>快去看看吧</a></p>",true);
                     }
                     helper.setTo(parentComment.getEmail());
                     helper.setFrom("2404240896@qq.com");

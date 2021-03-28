@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://49.235.105.223:3306/jun-blog-v2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://1.15.41.71:3306/jun-blog-v2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     password: zwj_0116_ZWJ
     username: root
   jpa:
@@ -13,7 +13,7 @@ spring:
         enable_lazy_load_no_trans: true
   mail:
     username: 2404240896@qq.com
-    password: fzmqvbehniovdhga
+    password: meeymhgpalymdjeg
     host: smtp.qq.com
     properties:
       mail:
@@ -26,9 +26,9 @@ logging:
     com.qiufeng: debug
   file: log/blog-dev.log
 http:
-  port: 8081
+  port: 80
 server:
-  port: 8888
+  port: 443
   ssl:
     key-store: classpath:4474412_www.qfblog.top.pfx
     key-store-password: vG93nROA
